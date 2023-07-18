@@ -140,17 +140,37 @@ func (t *ToDo) AddItem(item ToDoItem) error {
 func (t *ToDo) DeleteItem(id int) error {
 	//TODO: Implement this function
 	//Like the add item function, start by loading the database into the
-	//private map in our struct.  Then make sure the item we want to delete
+	//private map in our struct.  
+	if err := t.loadDB(); err != nil {
+   		return err
+	}
+
+	//Then make sure the item we want to delete
 	//exists in the map.  After all we cannot delete an item that is not
-	//in the database. If the item is in our internal map t.toDoMap, then
+	//in the database.
+	if _, exists := t.toDoMap[item.Id]; exists {
+		return errors.New("This item already exists in the database.")
+	}
+	
+	// If the item is in our internal map t.toDoMap, then
 	//delete it.  You can use the built-in go delete() function to do this.
-	//We covered this in the go tutorial. As the final step, save the DB
+	//We covered this in the go tutorial
+	
+	delete(t.toDoMap, id)
+	
+	//As the final step, save the DB
 	//using the saveDB() helper.  If there are any errors, return them, as
-	//appropriate.  If everything there are no errors, this function should
+	//appropriate. 
+	
+	if err := t.saveDB(); err != nil {
+		return err
+	}
+	
+	//If everything there are no errors, this function should
 	//return nil at the end to indicate that the item was properly deleted
 	//from the database.
 
-	return errors.New("DeleteItem() is currently not implemented")
+	return nil
 }
 
 // UpdateItem accepts a ToDoItem and updates it in the DB.
