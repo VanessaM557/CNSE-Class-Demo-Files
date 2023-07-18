@@ -351,13 +351,28 @@ func (t *ToDo) JsonToItem(jsonString string) (ToDoItem, error) {
 func (t *ToDo) ChangeItemDoneStatus(id int, value bool) error {
 	//TODO: Implement this function for EXTRA CREDIT if you want
 	//This function builds on all of the other functions you have
-	//implemented.  It should call GetItem() to get the item from
-	//the DB, then it should call UpdateItem() to update the item
-	//in the DB (after the status is changed).  If there are any
-	//errors along the way, return them.  If everything is successful
+	//implemented.  
+	//It should call GetItem() to get the item from the DB
+	
+	item, err := t.GetItem(id)
+	if err != nil {
+		return err
+	}
+	
+	item.IsDone = value
+	
+	// then it should call UpdateItem() to update the item
+	//in the DB (after the status is changed). 
+
+	err = t.UpdateItem(item)
+	if err != nil {
+	       return err
+	}
+	
+	//If there are any errors along the way, return them.  If everything is successful
 	//return nil at the end to indicate that the item was properly
 
-	return errors.New("ChangeItemDoneStatus() is currently not implemented")
+	return nil
 }
 
 //------------------------------------------------------------
