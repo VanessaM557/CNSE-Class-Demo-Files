@@ -275,12 +275,22 @@ func (t *ToDo) GetAllItems() ([]ToDoItem, error) {
 	//the private map in our struct.  Dont forget to return nil and an
 	//appropriate error if the database cannot be loaded.
 	
+	if err := t.loadDB(); err != nil {
+   		return nil, err
+	}
 	
-	//Next create an
-	//empty slice of ToDoItems.  Remember from the tutorial you can do this
-	//by "var toDoList []ToDoItem".  Now that we have an empty slice,
-	//iterate over our map and add each item to our slice.  Remember you
+	//Next create an empty slice of ToDoItems.  Remember from the tutorial you can do this
+	//by "var toDoList []ToDoItem".  
+	var itemList []ToDoItem
+	
+	
+	//Now that we have an empty slice, iterate over our map and add each item to our slice.  Remember you
 	//use the built in append() function in go to add an item in a slice.
+
+	for _, item := range t.toDoMap {
+		itemList = append(itemList, item)
+	}
+	
 	//Finally, if there were no errors along the way, return the slice
 	//and nil as the error value.
 
