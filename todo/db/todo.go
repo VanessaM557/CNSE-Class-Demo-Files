@@ -197,17 +197,28 @@ func (t *ToDo) UpdateItem(item ToDoItem) error {
 	
 	//Then make sure the item we want to update exists in the map.  After all we cannot update an
 	//item that is not in the database. 
-
 	
-	//If the item is in our internal
-	//map t.toDoMap, then update it.  You can do this by simply assigning
-	//the item to the map.  We covered this in the go tutorial. As the
-	//final step, save the DB using the saveDB() helper.  If there are
-	//any errors, return them, as appropriate.  If everything there are
-	//no errors, this function should return nil at the end to indicate
+       if _, exists := t.toDoMap[item.Id]; !exists {
+		return errors.New("This item does not exist in the database.")
+	}
+	
+	
+	//If the item is in our internal map t.toDoMap, then update it.  You can do this by simply assigning
+	//the item to the map.  We covered this in the go tutorial. 
+
+		t.toDoMap[item.Id] = item
+	
+	//As the final step, save the DB using the saveDB() helper.  If there are
+	//any errors, return them, as appropriate.  
+	
+	if err := t.saveDB(); err != nil {
+		return err
+	}  
+	
+	//If everything there are no errors, this function should return nil at the end to indicate
 	//that the item was properly updated in the database.
 
-	return errors.New("UpdateItem() is currently not implemented"), nil
+	return nil
 }
 
 // GetItem accepts an item id and returns the item from the DB.
