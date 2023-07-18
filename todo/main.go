@@ -120,7 +120,15 @@ func processCmdLineFlags() (AppOptType, error) {
 		case "s":
 			//For extra credit you will need to change some things here
 			//and also in main under the CHANGE_ITEM_STATUS case
+
+			// use the -q option to specify the item id.
+			if flag.Lookup("q").Value.String() != "" {
 			appOpt = CHANGE_ITEM_STATUS
+			} 
+			else 
+			{
+			appOpt = INVALID_APP_OPT
+			}
 		default:
 			appOpt = INVALID_APP_OPT
 		}
