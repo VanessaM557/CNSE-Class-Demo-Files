@@ -27,7 +27,17 @@ type DbMap map[int]ToDoItem
 //	   	 (they are lowercase).  Describe why you think this is
 //		 a good design decision.
 //
-// ANSWER: <GOES HERE>
+// ANSWER: < This is a good design for the following reasons:
+//
+//	        - lowercase field means encapsulation and data abstraction
+//		- with encapsulation being used, it does not allow other 
+//		  packages to modify these fields	
+//		- data is also protected since only this package itself can 
+//		  modify the fields
+//		- the package will now only show necessary functionality (implementation details hidden)
+//		- any modifications done to these fields may noy directly affect other packages
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 type ToDo struct {
 	toDoMap    DbMap
 	dbFileName string
