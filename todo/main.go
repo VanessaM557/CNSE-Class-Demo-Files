@@ -55,7 +55,22 @@ const (
 //						   use it.  See github.com/spf13/cobra for information
 //						   on how to use it.
 //
-//	 YOUR ANSWER: <GOES HERE>
+//	 YOUR ANSWER: <The fork package from what I read on https://pkg.go.dev/flag implements command-line flag parsement.
+//                            
+//                    func processCmdLineFlags()  is a function that defines several flags that can be used in the command line. 
+//                       -db flag specifies the name of the database file being used
+//			 -l flag lists all the items in the database being used
+//			 -q flag is used to query a specific item in the database
+//		         -a flag is used to add an item to the database being used 
+// 			 -u flag will update an item in the database
+//			 -d flag is used to delete an item from the database.
+//                     The function parses the flag inputs and assigns them a value that corresponds to each flag by calling 
+//		       flag parse(). "var appOpt AppOptType = INVALID_APP_OPT" is a variable that is assigned to INVALID_APP_OPT 
+//                     which means that there is an invalid option. if len(os.Args) == 1{ flag.Usage() return appOpt, errors.New("no flags were set")}         
+//		       is used to to indicate an error message if no flag is in the command. flagVisit is themn used in a series of switch statements to             
+//                     to reset the value of AppOpt to the corresponding flag. Then AppOpt and nil are returns accordingly/ 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 func processCmdLineFlags() (AppOptType, error) {
 	flag.StringVar(&dbFileNameFlag, "db", "./data/todo.json", "Name of the database file")
 
