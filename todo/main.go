@@ -217,8 +217,25 @@ func main() {
 		//For the CHANGE_ITEM_STATUS extra credit you will also
 		//need to add some code here
 		fmt.Println("Running CHANGE_ITEM_STATUS...")
-		fmt.Println("Not implemented yet, but it can be for extra credit")
+		fmt.Println("Please enter the item ID: ")
 		fmt.Println("Ok")
+                var itemID int
+	        fmt.Scanln(&itemID)
+
+	
+		fmt.Println("Please enter the new status (type in as true/false): ")
+	        var status bool
+	        fmt.Scanln(&status)
+
+	        err := toDo.ChangeItemDoneStatus(itemID, status)
+	       
+		if err != nil {
+			fmt.Println("Error: ", err)
+		} 
+		else 
+		{
+		fmt.Println("Item status has been updated successfully!")
+		}
 	default:
 		fmt.Println("INVALID_APP_OPT")
 	}
