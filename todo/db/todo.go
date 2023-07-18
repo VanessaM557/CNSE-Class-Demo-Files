@@ -238,17 +238,25 @@ func (t *ToDo) UpdateItem(item ToDoItem) error {
 func (t *ToDo) GetItem(id int) (ToDoItem, error) {
 	//TODO: Implement this function
 	//Like the add, delete, and update functions, start by loading the
-	//database into the private map in our struct.  Then make sure the
-	//item we want to get exists in the map.  After all we cannot get
-	//an item that is not in the database. If the item is in our internal
-	//map t.toDoMap, then return it.  You can do this by simply returning
+	//database into the private map in our struct.  
+	if err := t.loadDB(); err != nil {
+   		return err
+	}
+	
+	//Then make sure the item we want to get exists in the map.  After all we cannot get
+	//an item that is not in the database. 
+	if _, exists := t.toDoMap[id]; !exists {
+		return errors.New("This item does not exist in the database.")
+	}
+	
+	// If the item is in our internal map t.toDoMap, then return it.  You can do this by simply returning
 	//the item from the map.  We covered this in the go tutorial.  If there
 	//are any errors, return them, as appropriate.  If everything there are
 	//no errors, this function should return the item requested and nil
 	//as the error value the end to indicate that the item was
 	//properly returned from the database.
-
-	return ToDoItem{}, errors.New("GetItem() is currently not implemented")
+        return item, nil
+	
 }
 
 // GetAllItems returns all items from the DB.  If successful it
@@ -265,7 +273,10 @@ func (t *ToDo) GetAllItems() ([]ToDoItem, error) {
 	//TODO: Implement this function
 	//Like many of the other functions start by loading the database into
 	//the private map in our struct.  Dont forget to return nil and an
-	//appropriate error if the database cannot be loaded. Next create an
+	//appropriate error if the database cannot be loaded.
+	
+	
+	//Next create an
 	//empty slice of ToDoItems.  Remember from the tutorial you can do this
 	//by "var toDoList []ToDoItem".  Now that we have an empty slice,
 	//iterate over our map and add each item to our slice.  Remember you
@@ -273,7 +284,7 @@ func (t *ToDo) GetAllItems() ([]ToDoItem, error) {
 	//Finally, if there were no errors along the way, return the slice
 	//and nil as the error value.
 
-	return nil, errors.New("GetAllItems() is currently not implemented")
+	return itemList, nil
 }
 
 // PrintItem accepts a ToDoItem and prints it to the console
